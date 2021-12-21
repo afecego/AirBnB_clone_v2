@@ -12,7 +12,7 @@ class FileStorage:
         """Returns a dictionary of models currently in storage"""
         if cls is not None:
             clsDict = {}
-            for key, value in self.__objects.items():
+            for key, value in FileStorage.__objects.items():
                 if value.__class__ == cls:
                     clsDict[key] = value
                 return clsDict
@@ -39,7 +39,7 @@ class FileStorage:
             key = obj.__class__.__name__ + '.' + obj.id
             if key in FileStorage.__objects:
                 del FileStorage.__objects[key]
-        self.save()
+                FileStorage.save()
 
     def reload(self):
         """Loads storage dictionary from file"""
