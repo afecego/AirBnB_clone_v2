@@ -36,9 +36,9 @@ class FileStorage:
         if obj is None:
             return
         else:
-            key = obj.__class__.__name__ + '.' + obj.id
-            if key in FileStorage.__objects:
-                del FileStorage.__objects[key]
+            for key, value in self.all().items():
+                if value == obj:
+                    del self.all()[key]
 
     def reload(self):
         """Loads storage dictionary from file"""
