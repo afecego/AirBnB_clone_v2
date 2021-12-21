@@ -1,4 +1,4 @@
--- first 3 students in the Batch ID=3
+-- MySQL server for the project
 -- because Batch 3 is the best!
 
 CREATE DATABASE IF NOT EXISTS hbnb_dev_db;
