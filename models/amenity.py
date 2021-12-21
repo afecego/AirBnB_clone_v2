@@ -8,6 +8,3 @@ from sqlalchemy import Column, String
 
 class Amenity(BaseModel):
     name = ""
-
-    def __init__(self, *args, **kwargs):
-            super().__init__()

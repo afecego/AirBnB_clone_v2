@@ -142,7 +142,8 @@ class HBNBCommand(cmd.Cmd):
             return
         elif args[0] in HBNBCommand.classes:
             DictNew = self.function(args[1:])
-            new_instance = HBNBCommand.classes[args[0]](**DictNew)
+            new_instance = HBNBCommand.classes[args[0]]()
+            new_instance.__dict__.update(DictNew)
         else:
             print("** class doesn't exist **")
             return
