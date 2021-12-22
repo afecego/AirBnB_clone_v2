@@ -132,7 +132,6 @@ class HBNBCommand(cmd.Cmd):
             names.append(tupl[0])
             try:
                 if tupl[2][0] == '\"' and tupl[2][-1] == '\"':
-                    print("tuple")
                     value = tupl[2].replace('\"', '')
                     value = value.replace('_', ' ')
                     values.append(value)
