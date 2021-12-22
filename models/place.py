@@ -30,5 +30,5 @@ class Place(BaseModel, Base):
         def reviews(self):
             reviews = models.storage.all(Review)
             return {instans for instans in reviews.values()
-                    if self.id == instans.state_id}
+                    if self.id == instans.place_id}
 
