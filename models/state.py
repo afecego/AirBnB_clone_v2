@@ -10,13 +10,13 @@ import sqlalchemy
 from sqlalchemy import Column, String, ForeignKey
 from sqlalchemy.orm import relationship
 
-
-class State(BaseModel, Base):
-    """ State class """
-    __tablename__ = 'states'
-    if getenv('HBNB_TYPE_STORAGE') == "db":
+if getenv('HBNB_TYPE_STORAGE') == "db":
+    class State(BaseModel, Base):
+        """ State class """
+        __tablename__ = 'states'
         name = Column(String(128), nullable=False)
         cities = relationship('City', backref='state')
-    else:
+else:
+    class State(BaseModel):
         name = ""
         cities = models.storage.all(City)

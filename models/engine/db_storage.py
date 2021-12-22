@@ -21,12 +21,6 @@ class DBStorage():
     __engine = None
     __session = None
 
-    classes = {
-            'BaseModel': BaseModel, 'User': User, 'Place': Place,
-            'State': State, 'City': City, 'Amenity': Amenity,
-            'Review': Review
-            }
-
     def __init__(self):
         """
         __init__ [summary]
@@ -82,7 +76,6 @@ class DBStorage():
         """
         Base.metadata.create_all(self.__engine)
         session_fact = sessionmaker(bind=self.__engine, expire_on_commit=False)
-        #Session = scoped_session(session_fact)
         self.__session = session_fact()
 
     def close(self):

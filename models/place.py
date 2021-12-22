@@ -10,10 +10,9 @@ from models.base_model import Base, BaseModel
 import os
 
 
-class Place(BaseModel, Base):
-    """ A place to stay """
-    __tablename__ = "places"
-    if os.getenv('HBNB_TYPE_STORAGE') == 'db':
+if os.getenv('HBNB_TYPE_STORAGE') == 'db':
+    class Place(BaseModel, Base):
+        __tablename__ = "places"
         city_id = Column(String(60), ForeignKey('cities.id'), nullable=False)
         user_id = Column(String(60), ForeignKey('users.id'), nullable=False)
         name = Column(String(128), nullable=False)
@@ -27,7 +26,8 @@ class Place(BaseModel, Base):
         amenity_ids = []
 
         reviews = relationship('Review', backref='place', cascade='delete')
-    else:
+else:
+    class Place(BaseModel):
         city_id = ''
         user_id = ''
         name = ''
