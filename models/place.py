@@ -1,16 +1,23 @@
 #!/usr/bin/python3
 """ Place Module for HBNB project """
-import re
-from sqlalchemy import Column, String, ForeignKey, Integer, Float
+from sqlalchemy import Column, String, ForeignKey, Integer, Float, Table
 from sqlalchemy.orm import relationship
-from sqlalchemy.sql.expression import column
-from models.review import Review
 import models
+from models.amenity import Amenity
+from models.review import Review
 from models.base_model import Base, BaseModel
 import os
 
 
 if os.getenv('HBNB_TYPE_STORAGE') == 'db':
+
+    place_amenity = Table('place_amenity', Base.metadata,
+                    Column('place_id', String(60), ForeignKey('places.id'),
+                            primary_key=True, nullable=False),
+                    Column('amenity_id', String(60),
+                            ForeignKey('amenities.id'),
+                            primary_key=True, nullable=False))
+
     class Place(BaseModel, Base):
         __tablename__ = "places"
         city_id = Column(String(60), ForeignKey('cities.id'), nullable=False)
@@ -23,9 +30,10 @@ if os.getenv('HBNB_TYPE_STORAGE') == 'db':
         price_by_night = Column(Integer, default=0, nullable=False)
         latitude = Column(Float)
         longitude = Column(Float)
-        amenity_ids = []
 
         reviews = relationship('Review', backref='place', cascade='delete')
+        amenities = relationship('Amenity', secondary=place_amenity,
+                                 overlaps="place_amenities", viewonly=False)
 else:
     class Place(BaseModel):
         city_id = ''
@@ -52,3 +60,19 @@ else:
                     review_list.append(review)
             return review_list
 
+        @property
+        def amenities(self):
+            """Get a list of all linked Amenity.
+            """
+
+            Amenity_List = []
+
+            for amenity in models.storage.all(Amenity).values():
+                if amenity.place_id == self.id:
+                    Amenity_List.append(amenity)
+            return Amenity_List
+
+        @amenities.setter
+        def amenities(self, value):
+            if value.__class__.__name__ == 'Amenity':
+                self.amenities.append(value)

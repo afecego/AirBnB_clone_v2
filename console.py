@@ -10,8 +10,8 @@ from models.user import User
 from models.place import Place
 from models.state import State
 from models.city import City
-from models.amenity import Amenity
 from models.review import Review
+from models.amenity import Amenity
 
 
 class HBNBCommand(cmd.Cmd):
@@ -115,41 +115,6 @@ class HBNBCommand(cmd.Cmd):
         """ Overrides the emptyline method of CMD """
         pass
 
-    """def function(self, args):
-        Dict = {}
-        for arg in args:
-            if '=' in arg:
-                token = arg.split('=', 1)
-                value = token[1]
-                if value[0] == value[-1] == '"':
-                    value = shlex.split(value)[0].replace('_', ' ')
-                else:
-                    try:
-                        value = int(token[1])
-                    except ValueError:
-                        try:
-                            value = float(token[1])
-                        except ValueError:
-                            continue
-                Dict[token[0]] = value
-        return Dict
-
-    def do_create(self, arg):
-         Create an object of any class
-        args = arg.split()
-        if len(args) == 0:
-            print("** class name missing **")
-            return
-        elif args[0] in HBNBCommand.classes:
-            DictNew = self.function(args[1:])
-            new_instance = HBNBCommand.classes[args[0]]()
-            new_instance.__dict__.update(DictNew)
-        else:
-            print("** class doesn't exist **")
-            return
-        print(new_instance.id)
-        storage.save()"""
-
     def do_create(self, args):
         """ Create an object of any class"""
         pline = args.split()
@@ -163,21 +128,16 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
         for i in range(1, len(pline)):
-            print(i)
             tupl = pline[i].partition('=')
             names.append(tupl[0])
             try:
-                print("llegué al try")
-                print(tupl)
                 if tupl[2][0] == '\"' and tupl[2][-1] == '\"':
                     print("tuple")
                     value = tupl[2].replace('\"', '')
                     value = value.replace('_', ' ')
                     values.append(value)
-                    print("legué al try if")
                 else:
                     value = tupl[2]
-                    print("llegué al else")
                     if '.' in value or type(value) is float:
                         try:
                             value = float(value)
@@ -190,20 +150,15 @@ class HBNBCommand(cmd.Cmd):
                             values.append(value)
                         except Exception:
                             pass
-                print(values)
-                print(names)
             except IndexError:
-                print("INDEXERROR")
                 continue
 
         dictionary = dict(zip(names, values))
-        print("DICTIONARY ->>> {}".format(dictionary))
 
         new_instance = HBNBCommand.classes[_cls]()
         new_instance.__dict__.update(dictionary)
         new_instance.save()
         print(new_instance.id)
-
 
     def help_create(self):
         """ Help information for the create method """

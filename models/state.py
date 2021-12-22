@@ -19,4 +19,15 @@ if getenv('HBNB_TYPE_STORAGE') == "db":
 else:
     class State(BaseModel):
         name = ""
-        cities = models.storage.all(City)
+
+        @property
+        def cities(self):
+            """Get a list of all linked Amenity.
+            """
+
+            cities_List = []
+
+            for cities in models.storage.all(City).values():
+                if cities.place_id == self.id:
+                    cities_List.append(cities)
+            return cities_List

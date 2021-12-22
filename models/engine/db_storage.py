@@ -4,13 +4,13 @@ Contains the class DBStorage
 """
 
 import models
-from models.amenity import Amenity
 from models.base_model import BaseModel, Base
 from models.city import City
 from models.place import Place
 from models.review import Review
 from models.state import State
 from models.user import User
+from models.amenity import Amenity
 from os import getenv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
@@ -44,7 +44,7 @@ class DBStorage():
         if cls is None:
             objs = self.__session.query(State).all()
             objs.extend(self.__session.query(City).all())
-            #objs.extend(self.__session.query(Amenity).all())
+            objs.extend(self.__session.query(Amenity).all())
             objs.extend(self.__session.query(Place).all())
             objs.extend(self.__session.query(Review).all())
             objs.extend(self.__session.query(User).all())
