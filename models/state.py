@@ -14,12 +14,9 @@ from sqlalchemy.orm import relationship
 class State(BaseModel, Base):
     """ State class """
     __tablename__ = 'states'
-    name = Column(String(128), nullable=False)
     if getenv('HBNB_TYPE_STORAGE') == "db":
-        cities = relationship('City', backref='state', cascade='delete')
+        name = Column(String(128), nullable=False)
+        cities = relationship('City', backref='state')
     else:
-        @property
-        def cities(self):
-            cities = models.storage.all(City)
-            return {instans for instans in cities.values()
-                    if self.id == instans.state_id}
+        name = ""
+        cities = models.storage.all(City)

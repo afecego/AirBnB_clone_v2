@@ -12,7 +12,6 @@ from models.review import Review
 from models.state import State
 from models.user import User
 from os import getenv
-import sqlalchemy
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 
@@ -51,15 +50,18 @@ class DBStorage():
         if cls is None:
             objs = self.__session.query(State).all()
             objs.extend(self.__session.query(City).all())
-            objs.extend(self.__session.query(Amenity).all())
+            #objs.extend(self.__session.query(Amenity).all())
             objs.extend(self.__session.query(Place).all())
             objs.extend(self.__session.query(Review).all())
             objs.extend(self.__session.query(User).all())
         else:
-            if isinstance(cls, str):
-                cls = eval(cls)
-        objs = self.__session.query(cls).all()
-        return {objs.__class__.__name__ + '.' + objs.id: obj for obj in objs}
+            objs = self.__session.query(eval(cls)).all()
+        dictionary = {}
+        for element in objs:
+            key = '{}.{}'.format(type(element).__name__, element.id)
+            value = element
+            dictionary[key] = value
+        return dictionary
 
     def save(self):
         """Saves storage dictionary to file"""
@@ -80,8 +82,8 @@ class DBStorage():
         """
         Base.metadata.create_all(self.__engine)
         session_fact = sessionmaker(bind=self.__engine, expire_on_commit=False)
-        Session = scoped_session(session_fact)
-        self.__session = Session
+        #Session = scoped_session(session_fact)
+        self.__session = session_fact()
 
     def close(self):
         self.__session.close()

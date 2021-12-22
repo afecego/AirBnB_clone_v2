@@ -115,7 +115,7 @@ class HBNBCommand(cmd.Cmd):
         """ Overrides the emptyline method of CMD """
         pass
 
-    def function(self, args):
+    """def function(self, args):
         Dict = {}
         for arg in args:
             if '=' in arg:
@@ -135,7 +135,7 @@ class HBNBCommand(cmd.Cmd):
         return Dict
 
     def do_create(self, arg):
-        """ Create an object of any class"""
+         Create an object of any class
         args = arg.split()
         if len(args) == 0:
             print("** class name missing **")
@@ -148,7 +148,62 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
         print(new_instance.id)
-        storage.save()
+        storage.save()"""
+
+    def do_create(self, args):
+        """ Create an object of any class"""
+        pline = args.split()
+        _cls = pline[0]
+        values = []
+        names = []
+        if not _cls:
+            print("** class name missing **")
+            return
+        elif _cls not in HBNBCommand.classes:
+            print("** class doesn't exist **")
+            return
+        for i in range(1, len(pline)):
+            print(i)
+            tupl = pline[i].partition('=')
+            names.append(tupl[0])
+            try:
+                print("llegué al try")
+                print(tupl)
+                if tupl[2][0] == '\"' and tupl[2][-1] == '\"':
+                    print("tuple")
+                    value = tupl[2].replace('\"', '')
+                    value = value.replace('_', ' ')
+                    values.append(value)
+                    print("legué al try if")
+                else:
+                    value = tupl[2]
+                    print("llegué al else")
+                    if '.' in value or type(value) is float:
+                        try:
+                            value = float(value)
+                            values.append(value)
+                        except Exception:
+                            pass
+                    else:
+                        try:
+                            value = int(value)
+                            values.append(value)
+                        except Exception:
+                            pass
+                print(values)
+                print(names)
+            except IndexError:
+                print("INDEXERROR")
+                continue
+
+        dictionary = dict(zip(names, values))
+        print("DICTIONARY ->>> {}".format(dictionary))
+
+        new_instance = HBNBCommand.classes[_cls]()
+        new_instance.__dict__.update(dictionary)
+        new_instance.save()
+        print(new_instance.id)
+
 
     def help_create(self):
         """ Help information for the create method """
@@ -230,11 +285,11 @@ class HBNBCommand(cmd.Cmd):
             if args not in HBNBCommand.classes:
                 print("** class doesn't exist **")
                 return
-            for k, v in storage._FileStorage__objects.items():
+            for k, v in storage.all().items():
                 if k.split('.')[0] == args:
                     print_list.append(str(v))
         else:
-            for k, v in storage._FileStorage__objects.items():
+            for k, v in storage.all().items():
                 print_list.append(str(v))
 
         print(print_list)
