@@ -74,12 +74,6 @@ class test_basemodel(unittest.TestCase):
         with self.assertRaises(TypeError):
             new = self.value(**n)
 
-    def test_kwargs_one(self):
-        """ """
-        n = {'Name': 'test'}
-        with self.assertRaises(KeyError):
-            new = self.value(**n)
-
     def test_id(self):
         """ """
         new = self.value()
@@ -97,3 +91,54 @@ class test_basemodel(unittest.TestCase):
         n = new.to_dict()
         new = BaseModel(**n)
         self.assertFalse(new.created_at == new.updated_at)
+
+    @classmethod
+    def setUpClass(cls):
+        """setup"""
+        cls.base = BaseModel()
+        cls.base.name = 'Kevin'
+        cls.base.num = 25
+
+    @classmethod
+    def teardown(cls):
+        del cls.base
+
+    def tearDown(self):
+        """ Remove storage file at end of tests """
+        try:
+            os.remove('file.json')
+        except:
+            pass
+
+    def test_init_BaseModel(self):
+        """test if the base is an type BaseModel"""
+        self.assertIsInstance(self.base, BaseModel)
+
+    def test_save_BaseModel(self):
+        """test if the save works"""
+        self.base.save()
+        self.assertNotEqual(self.base.created_at, self.base.updated_at)
+
+    def test_to_dict_BaseModel(self):
+        """test if dictionary works"""
+        baseDict = self.base.to_dict()
+        self.assertEqual(self.base.__class__.__name__, 'BaseModel')
+        self.assertIsInstance(baseDict['created_at'], str)
+        self.assertIsInstance(baseDict['updated_at'], str)
+
+    def test_checking_for_docstring_BaseModel(self):
+        """checking for docstrings"""
+        self.assertIsNotNone(BaseModel.__doc__)
+        self.assertIsNotNone(BaseModel.__init__.__doc__)
+        self.assertIsNotNone(BaseModel.__str__.__doc__)
+        self.assertIsNotNone(BaseModel.save.__doc__)
+        self.assertIsNotNone(BaseModel.to_dict.__doc__)
+
+    def test_method_BaseModel(self):
+        """checking if Basemodel have methods"""
+        self.assertTrue(hasattr(BaseModel, '__init__'))
+        self.assertTrue(hasattr(BaseModel, 'save'))
+        self.assertTrue(hasattr(BaseModel, 'to_dict'))
+
+if __name__ == '__main__':
+    unittest.main()
