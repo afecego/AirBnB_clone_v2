@@ -1,0 +1,45 @@
+{
+    "City.7fed4983-7d1a-4b90-b765-813e73a82b18": {
+        "id": "7fed4983-7d1a-4b90-b765-813e73a82b18",
+        "created_at": "2021-12-22T20:38:39.135154",
+        "updated_at": "2021-12-22T20:38:39.135742",
+        "name": "San_Francisco",
+        "state_id": "hi",
+        "__class__": "City"
+    },
+    "Place.0aa4195b-3aad-48b6-8495-1b9d43f2085b": {
+        "id": "0aa4195b-3aad-48b6-8495-1b9d43f2085b",
+        "created_at": "2021-12-22T20:38:39.473101",
+        "updated_at": "2021-12-22T20:38:39.473662",
+        "city_id": "1234-abcd",
+        "user_id": "4321-dcba",
+        "name": "Death Star",
+        "description": "UNLIMITED POWER!!!!!",
+        "number_rooms": 1000000,
+        "number_bathrooms": 1,
+        "max_guest": 607360,
+        "price_by_night": 10,
+        "latitude": 160.0,
+        "longitude": 120.0,
+        "amenity_ids": [
+            "1324-lksdjkl"
+        ],
+        "__class__": "Place"
+    },
+    "Amenity.1fa626d2-e4bd-4129-8828-7190849d0b45": {
+        "id": "1fa626d2-e4bd-4129-8828-7190849d0b45",
+        "created_at": "2021-12-22T20:38:39.799916",
+        "updated_at": "2021-12-22T20:38:39.800443",
+        "name": "hi",
+        "__class__": "Amenity"
+    },
+    "Review.41968341-7ad8-412d-b10a-72c69977fb6e": {
+        "id": "41968341-7ad8-412d-b10a-72c69977fb6e",
+        "created_at": "2021-12-22T20:38:40.080759",
+        "updated_at": "2021-12-22T20:38:40.081624",
+        "place_id": "4321-dcba",
+        "user_id": "123-bca",
+        "text": "The srongest in the Galaxy",
+        "__class__": "Review"
+    }
+}

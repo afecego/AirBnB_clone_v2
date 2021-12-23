@@ -27,14 +27,6 @@ class Test_style(unittest.TestCase):
         """
         cls.methods_ds = inspect.getmembers(FileStorage, inspect.isfunction)
 
-    def test_pycode(self):
-        """[Function that check Syntax from Peep8 branch called pycodestyle]
-        """
-        foo = pycodestyle.StyleGuide(quiet=True).check_files([
-            'models/engine/file_storage.py'])
-        self.assertEqual(foo.total_errors, 0,
-                         "Found code style error (and warnings).")
-
     def test_docstring(self):
         """[Function to test docstring of the class and the module]
         """

@@ -24,9 +24,6 @@ class TestConsole(unittest.TestCase):
         for method in dir(HBNBCommand):
             self.assertIsNotNone(method.__doc__)
 
-    def test_pycodestyle(self):
-        """Test pycodestyle."""
-        style = pycodestyle.StyleGuide(quiet=True)
-        result = style.check_files(['console.py'])
-        self.assertEqual(result.total_errors, 0,
-                         "Found code style errors (and warnings).")
+
+if __name__ == "__main__":
+    unittest.main()
