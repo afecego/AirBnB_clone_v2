@@ -9,7 +9,7 @@ from os.path import isdir
 
 
 def do_pack():
-    """fuction"""
+    """function"""
     try:
         date = datetime.now().strftime("%Y%m%d%H%M%S")
         if isdir("versions") is False:
