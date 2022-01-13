@@ -8,8 +8,7 @@ sudo ufw allow 'Nginx HTTP'
 sudo mkdir -p /data/web_static/shared/
 sudo mkdir -p /data/web_static/releases/test/
 sudo touch /data/web_static/releases/test/index.html
-echo "
-<html>
+echo "<html>
   <head>
   </head>
   <body>
