@@ -14,10 +14,10 @@ echo "<html>
   <body>
     Holberton School
   </body>
-</html>" | sudo tee /data/web_static/releases/test/index.html > /dev/null
+</html>" | sudo tee -a /data/web_static/releases/test/index.html > /dev/null
 sudo ln -sf /data/web_static/releases/test/ /data/web_static/current
 sudo chown -hR ubuntu:ubuntu /data/
-new_string="server_name _;\n\tlocation /hbnb_static/ {\n\t\talias /data/web_static/current/;\n\t}"
-sudo sed -i "s|server_name\ _;|$new_string|" /etc/nginx/sites-available/default
+new_string="\\\n\tlocation /hbnb_static/ {\n\t\talias /data/web_static/current/;\n\t}\n"
+sudo sed -i "24i $new_string" /etc/nginx/sites-available/default
 sudo service nginx reload
 sudo service nginx start
