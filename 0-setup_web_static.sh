@@ -14,7 +14,7 @@ echo "<html>
   <body>
     Holberton School
   </body>
-</html>" | sudo tee -a /data/web_static/releases/test/index.html
+</html>" | sudo tee -a /data/web_static/releases/test/index.html > /dev/null
 sudo ln -sf /data/web_static/releases/test/ /data/web_static/current
 sudo chown -hR ubuntu:ubuntu /data/
 new_string="server_name _;\n\tlocation /hbnb_static/ {\n\t\talias /data/web_static/current/;\n\t}"
