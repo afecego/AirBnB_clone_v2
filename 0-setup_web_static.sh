@@ -8,8 +8,9 @@ sudo ufw allow 'Nginx HTTP'
 sudo mkdir -p /data/web_static/shared/
 sudo mkdir -p /data/web_static/releases/test/
 sudo touch /data/web_static/releases/test/index.html
-echo "It is working" | sudo tee /data/web_static/releases/test/index.html
-sudo ln -s /data/web_static/current /data/web_static/releases/test/
+echo "Holberton School" | sudo tee /data/web_static/releases/test/index.html
+sudo ln -s /data/web_static/releases/test/ /data/web_static/current
 sudo chown -R ubuntu:ubuntu /data/
-new_string="server_name _;\n\t\tlocation /hbnb_static/ {\n\t\t\talias /data/web_static/current/;\n\t\t}"
+new_string="server_name _;\n\tlocation /hbnb_static/ {\n\t\talias /data/web_static/current/;\n\t}"
 sudo sed -i "s|server_name\ _;|$new_string|" /etc/nginx/sites-available/default
+sudo service nginx restart
