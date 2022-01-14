@@ -1,27 +1,26 @@
-#!/usr/bin/python3
-
 """
-creates and distributes an archive to your web servers
-
+Deployment 3
 """
-from fabric.api import env, put, run
-from os.path import exists
 
-env.hosts = ['35.243.152.136', '54.196.195.128']
+from fabric.api import env, put, run, local
+from os.path import isdir, exists
+import datetime
+
+env.hosts = ['35.237.0.179', '54.167.64.127']
+
+env.user = "ubuntu"
+
+date_now = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
 
 
 def do_pack():
-    """function"""
+    """ Compress to tgz """
     try:
-        date = datetime.now().strftime("%Y%m%d%H%M%S")
-        if isdir("versions") is False:
+        if isdir('versions') is False:
             local("mkdir versions")
-
-        fileName = "versions/web_static_{}.tgz".format(date)
-        local("tar -cvzf {} web_static".format(fileName))
-
-        return fileName
-
+        filename = "versions/web_static_{}.tgz".format(date_now)
+        local('tar -cvzf {} web_static'.format(filename))
+        return filename
     except Exception:
         return None
 
