@@ -29,6 +29,6 @@ else:
             cities_List = []
 
             for cities in models.storage.all(City).values():
-                if cities.place_id == self.id:
+                if cities.state_id == self.id:
                     cities_List.append(cities)
             return cities_List
