@@ -7,7 +7,6 @@ import models
 from models.base_model import BaseModel, Base
 from models.city import City
 from os import getenv
-import sqlalchemy
 from sqlalchemy import Column, String, ForeignKey
 from sqlalchemy.orm import relationship
 
@@ -30,5 +29,5 @@ else:
 
             for cities, value in models.storage.all(City).items():
                 if value.state_id == self.id:
-                    cities_List.append(cities)
+                    cities_List.append(value)
             return cities_List
