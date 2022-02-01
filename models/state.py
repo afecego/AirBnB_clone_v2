@@ -22,12 +22,12 @@ else:
 
         @property
         def cities(self):
-            """Get a list of all linked Amenity.
             """
-
-            cities_List = []
-
-            for cities, value in models.storage.all(City).items():
-                if value.state_id == self.id:
-                    cities_List.append(value)
-            return cities_List
+            this funtion add the city in the list
+            """
+            cities_list = []
+            cities = models.storage.all(City).values()
+            for city in cities:
+                if city.state_id == self.id:
+                    cities_list.append(city)
+            return cities_list
