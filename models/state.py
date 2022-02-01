@@ -1,16 +1,15 @@
 #!/usr/bin/python3
-""" State Module for HBNB project
-This is the state class
-holds class State"""
-
-import models
+""" State Module for HBNB project """
 from models.base_model import BaseModel, Base
-from models.city import City
-from os import getenv
-from sqlalchemy import Column, String, ForeignKey
+from sqlalchemy.sql.schema import Column, ForeignKey
+from sqlalchemy.sql.sqltypes import String
 from sqlalchemy.orm import relationship
+from models.city import City
+import models
+from os import getenv
 
-if getenv('HBNB_TYPE_STORAGE') == "db":
+
+if getenv('HBNB_TYPE_STORAGE') == 'db':
     class State(BaseModel, Base):
         """ State class """
         __tablename__ = 'states'
@@ -18,7 +17,8 @@ if getenv('HBNB_TYPE_STORAGE') == "db":
         cities = relationship('City', backref='state')
 else:
     class State(BaseModel):
-        name = ""
+        """ State class """
+        name = ''
 
         @property
         def cities(self):

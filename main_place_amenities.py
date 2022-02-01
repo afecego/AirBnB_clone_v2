@@ -1,12 +1,12 @@
 #!/usr/bin/python3
 """ Test link Many-To-Many Place <> Amenity
 """
-from models.state import *
-from models.city import *
-from models.user import *
-from models.place import *
-from models.amenity import *
-from models.base_model import *
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
+from models.user import User
 from models import storage
 
 

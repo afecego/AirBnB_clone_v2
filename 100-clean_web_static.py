@@ -4,7 +4,7 @@
 Deployment 3
 """
 
-from fabric.api import env, put, run, local
+from fabric.api import local, hosts, put, run, env, lcd, cd
 from os.path import isdir, exists
 import datetime
 
@@ -57,3 +57,15 @@ def deploy():
         return False
     x = do_deploy(new_filename)
     return x
+
+
+def do_clean(number=0):
+    """Deletes out-of-date archives."""
+    erase = int(number) if int(number) >= 2 else 1
+    cmd = ('ls -tr | grep web_static | '
+           'head -n -{} | xargs rm -rf'.format(erase))
+
+    with lcd('./versions'):
+        local(cmd)
+    with cd('/data/web_static/releases/'):
+        run(cmd)
