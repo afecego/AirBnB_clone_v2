@@ -9,8 +9,8 @@
             {% for row in state_all.values()|sort(attribute="name") %}
             <LI>{{ row.id }}: <B>{{ row.name }}</B></LI>
             <UL>
-                {% for row in state_all.cities.values()|sort(attribute="name") %}
-                <LI>{{ row.id }}: <B>{{ row.name }}</B></LI>
+                {% for item in row.cities|sort(attribute="name") %}
+                <LI>{{ item.id }}: <B>{{ item.name }}</B></LI>
                 {% endfor %}
             </UL>
             {% endfor %}
