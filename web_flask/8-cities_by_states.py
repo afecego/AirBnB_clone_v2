@@ -10,8 +10,8 @@ app.url_map.strict_slashes = False
 
 @app.route('/cities_by_states')
 def states_list():
-    list_state = storage.all(State)    
-    return render_template('7-states_list.html', state_all=list_state)
+    list_state = storage.all(State)
+    return render_template('8-cities_by_states.html', state_all=list_state)
 
 
 @app.teardown_appcontext
