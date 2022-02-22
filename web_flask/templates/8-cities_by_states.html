@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 <HTML lang="en">
-    <HEAD>
-        <TITLE>HBNB</TITLE>
-    </HEAD>
-    <BODY>
-        <H1>States</H1>
-        <UL>
-            {% for row in state_all.values()|sort(attribute="name") %}
-            <LI>{{ row.id }}: <B>{{ row.name }}</B></LI>
+
+<HEAD>
+    <TITLE>HBNB</TITLE>
+</HEAD>
+
+<BODY>
+    <H1>States</H1>
+    <UL>
+        {% for row in state_all.values()|sort(attribute="name") %}
+        <LI>{{ row.id }}: <B>{{ row.name }}</B>
             <UL>
                 {% for item in row.cities|sort(attribute="name") %}
                 <LI>{{ item.id }}: <B>{{ item.name }}</B></LI>
                 {% endfor %}
             </UL>
-            {% endfor %}
-        </UL>
-    </BODY>
+        </LI>
+        {% endfor %}
+    </UL>
+</BODY>
+
 </HTML>
