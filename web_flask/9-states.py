@@ -10,9 +10,9 @@ app = Flask(__name__)
 @app.route('/states/<id>', strict_slashes=False)
 def id_list(id=None):
     if id is not None:
-        states = 'State.' + id
+        new_id = 'State.' + id
     states = storage.all(State)
-    return render_template('9-states.html', city_state=states, id_city=id)
+    return render_template('9-states.html', city_state=states, id_city=new_id)
 
 
 @app.teardown_appcontext
